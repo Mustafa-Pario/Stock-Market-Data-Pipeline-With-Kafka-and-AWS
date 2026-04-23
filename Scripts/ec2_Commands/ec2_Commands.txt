@@ -1,0 +1,43 @@
+Create Virtual Environemnt
+
+Activate VE
+
+Then Run these Commands:
+
+********** Useful Commands ***************
+
+sudo yum update
+sudo yum install java-1.8.0  --> To install java
+wget https://downloads.apache.org/kafka/3.9.2/kafka_2.12-3.9.2.tgz --> kafka link
+tar -xzf kafka_2.12-3.9.2.tgz --> To unzip kafka file
+sudo mv kafka_2.12-3.9.2 /usr/local/kafka --> to move unziped kafka file in to provided path
+cd /usr/local/kafka
+sudo nano config/server.properties --> To open the config file
+	(Update This advertised.listeners=PLAINTEXT://54.87.201.83:9092) --> update clt S + clt X
+bin/zookeeper-server-start.sh config/zookeeper.properties --> To start zookeeper
+
+# open new terminal
+# activate Virtual Environemnt
+# source kafka_venv/bin/activate
+# cd /usr/local/kafka/
+
+export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M" --> To set memory for kafka
+bin/kafka-server-start.sh config/server.properties --> To start kafka 
+
+
+# open new terminal
+# activate Virtual Environemnt
+# source kafka_venv/bin/activate
+# cd /usr/local/kafka/
+## To Create Topic and Partition
+bin/kafka-topics.sh --create --topic kafka-project --bootstrap-server 54.87.201.83:9092 --replication-factor 1 --partitions 1 
+
+### bin/kafka-console-producer.sh --topic kafka_project --bootstrap-server 54.87.201.83:9092
+
+## To create producer
+# cd /usr/local/kafka/
+bin/kafka-console-producer.sh --topic kafka-project --bootstrap-server 54.87.201.83:9092
+
+## To run consumer
+# cd /usr/local/kafka/
+bin/kafka-console-consumer.sh --topic kafka-project --bootstrap-server 54.87.201.83:9092
